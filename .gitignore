@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+*.log
+frames/
+frames_v2/
+.env
+.env.*
