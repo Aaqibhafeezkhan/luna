@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luna — 3D Spatial Computing Engine | Executive Summary</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      background-color: #EDE8E1;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9pt;
+      line-height: 1.45;
+    }
+
+    .sheet {
+      width: 210mm;
+      height: 296.5mm;
+      max-height: 296.5mm;
+      overflow: hidden;
+      background: #FAF7F2;
+      position: relative;
+      padding: 18mm 20mm 16mm 20mm;
+      margin: 10mm auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* Top Brand & Header */
+    .header {
+      border-bottom: 1.5px solid #E5DFD5;
+      padding-bottom: 12px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9A3412;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 26pt;
+      font-weight: 700;
+      color: #1C1917;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 10pt;
+      color: #57534E;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      font-weight: 600;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Concise Summary Text */
+    .summary-box {
+      margin: 14px 0 16px 0;
+    }
+
+    .summary-text {
+      font-size: 9.2pt;
+      color: #292524;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* Action Link Cards (Large Clickable Buttons) */
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .action-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2D9CC;
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 8px rgba(41, 37, 36, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .action-card.live-demo {
+      border-left: 5px solid #0284C7;
+      background: linear-gradient(90deg, #F0F9FF 0%, #FFFFFF 100%);
+    }
+
+    .action-card.github-repo {
+      border-left: 5px solid #C2410C;
+      background: linear-gradient(90deg, #FFF7ED 0%, #FFFFFF 100%);
+    }
+
+    .action-card-content {
+      flex: 1;
+    }
+
+    .action-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 3px;
+      display: inline-block;
+    }
+
+    .live-demo .action-badge {
+      color: #0369A1;
+    }
+
+    .github-repo .action-badge {
+      color: #C2410C;
+    }
+
+    .action-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 13pt;
+      font-weight: 700;
+      color: #1C1917;
+      margin-bottom: 2px;
+    }
+
+    .action-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #0369A1;
+      text-decoration: underline;
+      display: inline-block;
+      margin-bottom: 4px;
+      word-break: break-all;
+    }
+
+    .action-desc {
+      font-size: 7.8pt;
+      color: #57534E;
+      line-height: 1.35;
+    }
+
+    .action-arrow {
+      padding-left: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid #E5DFD5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* Key Specs Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .spec-card {
+      background: #FFFFFF;
+      border: 1px solid #E5DFD5;
+      border-radius: 6px;
+      padding: 11px 13px;
+      box-shadow: 0 1px 3px rgba(41, 37, 36, 0.02);
+    }
+
+    .spec-card h4 {
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #1C1917;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .spec-card p {
+      font-size: 7.8pt;
+      color: #44403C;
+      line-height: 1.4;
+    }
+
+    /* Visual Showcase */
+    .showcase-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .showcase-item {
+      background: #FFFFFF;
+      border: 1px solid #E5DFD5;
+      border-radius: 6px;
+      padding: 4px;
+      overflow: hidden;
+    }
+
+    .showcase-item img {
+      width: 100%;
+      height: 118px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .showcase-caption {
+      font-size: 7pt;
+      font-weight: 600;
+      color: #57534E;
+      text-align: center;
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1.5px solid #E5DFD5;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.2pt;
+      color: #78716C;
+    }
+
+    .footer-left strong {
+      color: #1C1917;
+    }
+
+    .footer-right a {
+      color: #C2410C;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sheet">
+    <div>
+      <!-- Header -->
+      <div class="header">
+        <div class="eyebrow">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#9A3412"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Techfest, IIT Bombay × Juspay • Spatial AI Challenge
+        </div>
+        <div class="header-flex">
+          <div>
+            <h1 class="title">LUNA</h1>
+            <div class="subtitle">3D Spatial Computing Engine &amp; Indoor Digital Twin</div>
+          </div>
+          <div>
+            <span class="badge">Official Round 1 Submission</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minimum Description -->
+      <div class="summary-box">
+        <p class="summary-text">
+          <strong>Luna</strong> is an industrial-grade, browser-native 3D spatial computing engine engineered to convert consumer mobile captures into interactive, metrically accurate 60 FPS WebGL digital twins. By decoupling continuous <strong>65,000+ Gaussian Splat Radiance Fields</strong> from a discrete <strong>Geometric NavMesh AABB Collision Matrix</strong>, Luna enables seamless first-person roaming, real-time laser measurement, universal client-side photo/video reconstruction, and embedded <strong>Juspay HyperSDK</strong> proximity commerce nodes.
+        </p>
+      </div>
+
+      <!-- Action Link Cards (Direct Hyperlinks) -->
+      <div class="links-container">
+        
+        <!-- Live Demo Card -->
+        <a href="https://instruction-antenna-reseller-patterns.trycloudflare.com" class="action-card live-demo" target="_blank">
+          <div class="action-card-content">
+            <span class="action-badge">Live Interactive Deployment</span>
+            <div class="action-title">Launch Live 3D WebGL Engine</div>
+            <span class="action-url">https://instruction-antenna-reseller-patterns.trycloudflare.com</span>
+            <div class="action-desc">Direct interactive digital twin. Features WASD first-person roaming, isometric dollhouse orbit, 3D laser Euclidean distance measurement, and universal photo/video upload.</div>
+          </div>
+          <div class="action-arrow">
+            <div class="arrow-circle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- GitHub Repo Card -->
+        <a href="https://github.com/atharhive/luna" class="action-card github-repo" target="_blank">
+          <div class="action-card-content">
+            <span class="action-badge">Source Code &amp; Verified Commits</span>
+            <div class="action-title">Explore GitHub Repository (atharhive/luna)</div>
+            <span class="action-url">https://github.com/atharhive/luna</span>
+            <div class="action-desc">Complete Three.js shaders, client-side Laplacian blur ingestion, metric Cartesian POI indices, and Stanford .PLY point cloud export. Cryptographically signed with verified SSH key.</div>
+          </div>
+          <div class="action-arrow">
+            <div class="arrow-circle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Key Capabilities (2x2 Grid) -->
+      <div class="specs-grid">
+        <div class="spec-card">
+          <h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#C2410C"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Dual-Layer Decoupled Architecture
+          </h4>
+          <p>Continuous 65k Gaussian Splat volumetric radiance field synchronized with a discrete NavMesh polygon graph with AABB collision corridors.</p>
+        </div>
+        <div class="spec-card">
+          <h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#0F766E"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            60 FPS Browser Hardware Vsync
+          </h4>
+          <p>Instant zero-download browser streaming in WebGL 2.0. Runs at solid 60 FPS on standard desktop and mobile hardware.</p>
+        </div>
+        <div class="spec-card">
+          <h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#0369A1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Universal Ingestion &amp; .PLY Export
+          </h4>
+          <p>Client-side drag-and-drop reconstruction with Laplacian blur gating Var(&Delta;I) &ge; &tau; and one-click Stanford .PLY binary export.</p>
+        </div>
+        <div class="spec-card">
+          <h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#8B5CF6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h10M7 9h2"/></svg>
+            Juspay HyperSDK Spatial Commerce
+          </h4>
+          <p>Metric 3D Cartesian coordinates [X, Y, Z] embedding proximity payment discovery, desk reservation checkout, and access gating.</p>
+        </div>
+      </div>
+
+      <!-- Visual Preview Strip -->
+      <div class="showcase-row">
+        <div class="showcase-item">
+          <img src="screen_splat.png" alt="65k Gaussian Splat Radiance Field">
+          <div class="showcase-caption">Mode 1: 65,000+ Gaussian Splat Radiance Field</div>
+        </div>
+        <div class="showcase-item">
+          <img src="screen_pbr_solid.png" alt="Metrically Grounded PBR Solid Twin">
+          <div class="showcase-caption">Mode 2: Metrically Accurate PBR Solid Room (4.8m &times; 3.2m)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <strong>Candidate:</strong> Athar (IIT Madras) • <strong>Track:</strong> Namma Space (Spatial AI)
+      </div>
+      <div class="footer-right">
+        <span>Verified Commit: <strong>bf6fc469</strong> • <a href="https://github.com/atharhive/luna">github.com/atharhive/luna</a></span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
