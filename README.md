@@ -235,6 +235,7 @@ Production assets are generated in the `dist/` directory, optimized for zero-con
 
 ## Competition Deliverables
 
+- 📄 **Executive Pitch Deck (Warm Edition):** [`Luna_Executive_Pitch_Athar.pdf`](Luna_Executive_Pitch_Athar.pdf) — 3-page publication-grade pitch deck featuring the live interactive engine link, GitHub repository, dual-layer architecture, POI Cartesian matrix, and benchmarks.
 - 📄 **Master Technical Abstract:** [`Namma_Space_Round1_Athar.pdf`](Namma_Space_Round1_Athar.pdf) — Publication-grade 2-page document with typography, mathematics, and SOP specifications.
 - 🎥 **Walkthrough Demo Video:** [`Namma_Space_Walkthrough_Demo.mp4`](Namma_Space_Walkthrough_Demo.mp4) — 1080p walkthrough showcasing dual-mode navigation, laser measurement, and spatial POI indexing.
 - 📐 **Vector System Architecture:** [`architecture.svg`](architecture.svg) — Dark-mode scalable vector diagram.
