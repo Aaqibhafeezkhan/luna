@@ -110,6 +110,163 @@ document.addEventListener('mousemove', (event) => {
   camera.quaternion.setFromEuler(euler);
 });
 
+// Mobile touch navigation: a virtual movement joystick plus drag-to-look.
+if (window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0) {
+  const joystickStyle = document.createElement('style');
+  joystickStyle.textContent = `
+    #mobile-joystick {
+      position: fixed; left: max(20px, env(safe-area-inset-left)); bottom: max(22px, env(safe-area-inset-bottom));
+      width: 136px; height: 136px; border-radius: 50%; z-index: 60; touch-action: none;
+      background: rgba(15, 23, 42, .55); border: 1px solid rgba(103, 232, 249, .48);
+      box-shadow: 0 8px 28px rgba(2, 6, 23, .35); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #mobile-joystick::after {
+      content: 'MOVE'; position: absolute; bottom: 13px; color: rgba(207, 250, 254, .72);
+      font: 700 9px/1 'JetBrains Mono', monospace; letter-spacing: 1.5px; pointer-events: none;
+    }
+    #mobile-joystick-knob {
+      width: 54px; height: 54px; border-radius: 50%; transform: translate(0, 0);
+      background: linear-gradient(145deg, rgba(34, 211, 238, .9), rgba(79, 70, 229, .88));
+      border: 1px solid rgba(255,255,255,.65); box-shadow: 0 4px 16px rgba(6, 182, 212, .3);
+      pointer-events: none;
+    }
+    #mobile-look-hint {
+      position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(32px, env(safe-area-inset-bottom));
+      z-index: 40; padding: 8px 10px; border: 1px solid rgba(148,163,184,.35);
+      border-radius: 12px; background: rgba(15,23,42,.6); color: rgba(226,232,240,.82);
+      font: 10px/1.4 'JetBrains Mono', monospace; pointer-events: none; text-align: center;
+    }
+    @media (max-width: 420px) {
+      #mobile-joystick { width: 118px; height: 118px; }
+      #mobile-joystick-knob { width: 48px; height: 48px; }
+      #mobile-look-hint { right: 12px; bottom: 26px; max-width: 104px; }
+    }
+  `;
+  document.head.appendChild(joystickStyle);
+
+  const joystick = document.createElement('div');
+  joystick.id = 'mobile-joystick';
+  joystick.setAttribute('role', 'group');
+  joystick.setAttribute('aria-label', 'Virtual movement joystick');
+  const knob = document.createElement('div');
+  knob.id = 'mobile-joystick-knob';
+  joystick.appendChild(knob);
+  document.body.appendChild(joystick);
+
+  const lookHint = document.createElement('div');
+  lookHint.id = 'mobile-look-hint';
+  lookHint.textContent = 'DRAG SCREEN TO LOOK';
+  document.body.appendChild(lookHint);
+
+  container.style.touchAction = 'none';
+  const joystickRadius = 42;
+  const activeKeys = new Set();
+  let joystickTouchId = null;
+  let lookTouchId = null;
+  let lastLookX = 0;
+  let lastLookY = 0;
+
+  function setTouchKeys(nextKeys) {
+    for (const key of activeKeys) {
+      if (!nextKeys.has(key)) state.keys[key] = false;
+    }
+    for (const key of nextKeys) state.keys[key] = true;
+    activeKeys.clear();
+    for (const key of nextKeys) activeKeys.add(key);
+  }
+
+  function releaseJoystick() {
+    joystickTouchId = null;
+    setTouchKeys(new Set());
+    knob.style.transform = 'translate(0px, 0px)';
+  }
+
+  function updateJoystick(touch) {
+    const rect = joystick.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    let dx = touch.clientX - centerX;
+    let dy = touch.clientY - centerY;
+    const distance = Math.hypot(dx, dy);
+    if (distance > joystickRadius) {
+      dx = dx / distance * joystickRadius;
+      dy = dy / distance * joystickRadius;
+    }
+    knob.style.transform = `translate(${dx}px, ${dy}px)`;
+
+    const magnitude = Math.hypot(dx, dy);
+    const nextKeys = new Set();
+    if (magnitude > 10) {
+      if (dy < -10) nextKeys.add('w');
+      if (dy > 10) nextKeys.add('s');
+      if (dx < -10) nextKeys.add('a');
+      if (dx > 10) nextKeys.add('d');
+    }
+    setTouchKeys(nextKeys);
+  }
+
+  joystick.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    if (joystickTouchId !== null) return;
+    const touch = event.changedTouches[0];
+    joystickTouchId = touch.identifier;
+    updateJoystick(touch);
+  }, { passive: false });
+
+  joystick.addEventListener('touchmove', (event) => {
+    event.preventDefault();
+    for (const touch of event.changedTouches) {
+      if (touch.identifier === joystickTouchId) updateJoystick(touch);
+    }
+  }, { passive: false });
+
+  const endJoystickTouch = (event) => {
+    for (const touch of event.changedTouches) {
+      if (touch.identifier === joystickTouchId) releaseJoystick();
+    }
+  };
+  joystick.addEventListener('touchend', endJoystickTouch);
+  joystick.addEventListener('touchcancel', endJoystickTouch);
+
+  container.addEventListener('touchstart', (event) => {
+    if (state.mode !== 'first-person' || lookTouchId !== null) return;
+    const touch = event.changedTouches[0];
+    lookTouchId = touch.identifier;
+    lastLookX = touch.clientX;
+    lastLookY = touch.clientY;
+  }, { passive: true });
+
+  container.addEventListener('touchmove', (event) => {
+    if (lookTouchId === null || state.mode !== 'first-person') return;
+    for (const touch of event.changedTouches) {
+      if (touch.identifier !== lookTouchId) continue;
+      const deltaX = touch.clientX - lastLookX;
+      const deltaY = touch.clientY - lastLookY;
+      lastLookX = touch.clientX;
+      lastLookY = touch.clientY;
+      euler.setFromQuaternion(camera.quaternion);
+      euler.y -= deltaX * 0.004;
+      euler.x -= deltaY * 0.004;
+      euler.x = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, euler.x));
+      camera.quaternion.setFromEuler(euler);
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  const endLookTouch = (event) => {
+    for (const touch of event.changedTouches) {
+      if (touch.identifier === lookTouchId) lookTouchId = null;
+    }
+  };
+  container.addEventListener('touchend', endLookTouch);
+  container.addEventListener('touchcancel', endLookTouch);
+
+  // Keep virtual movement released when switching away from first-person mode.
+  btnModeOrbit.addEventListener('click', releaseJoystick);
+  btnModeFP.addEventListener('click', () => { lookTouchId = null; });
+}
+
 // Keyboard Listeners
 window.addEventListener('keydown', (e) => {
   switch (e.code) {
