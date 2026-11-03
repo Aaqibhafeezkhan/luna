@@ -7,7 +7,7 @@ git clone https://github.com/atharhive/luna && cd luna && npm install && npm run
 ```
 
 <p align="center">
-  <img src="demo.gif" alt="Luna — 3D Spatial Walkthrough Demo" width="100%">
+  <img src="screen_universal_reconstruction.png" alt="Luna — 3D Spatial Computing Engine & Indoor Digital Twin" width="100%">
 </p>
 
 <p align="center">
