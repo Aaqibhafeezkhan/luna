@@ -73,9 +73,23 @@ const euler = new THREE.Euler(0, 0, 0, 'YXZ');
 const clickOverlay = document.getElementById('click-overlay');
 const crosshair = document.getElementById('crosshair');
 
+const supportsTouchControls = navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+
+function enterFirstPersonControls() {
+  if (supportsTouchControls) {
+    clickOverlay.style.opacity = '0';
+    setTimeout(() => { clickOverlay.style.display = 'none'; }, 300);
+    crosshair.classList.remove('hidden');
+    const instruction = clickOverlay.querySelector('p');
+    if (instruction) instruction.textContent = 'Use the virtual joystick to move and drag the screen to look around.';
+    return;
+  }
+  container.requestPointerLock();
+}
+
 clickOverlay.addEventListener('click', () => {
   if (state.mode === 'first-person') {
-    container.requestPointerLock();
+    enterFirstPersonControls();
   } else {
     clickOverlay.style.opacity = '0';
     setTimeout(() => { clickOverlay.style.display = 'none'; }, 300);
@@ -386,7 +400,7 @@ modalNavBtn.addEventListener('click', () => {
     calculatePath(state.selectedPOI);
     modal.classList.add('hidden');
     if (state.mode === 'first-person') {
-      container.requestPointerLock();
+      enterFirstPersonControls();
     }
   }
 });
