@@ -263,8 +263,8 @@ if (window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints >
   container.addEventListener('touchcancel', endLookTouch);
 
   // Keep virtual movement released when switching away from first-person mode.
-  btnModeOrbit.addEventListener('click', releaseJoystick);
-  btnModeFP.addEventListener('click', () => { lookTouchId = null; });
+  window.__releaseMobileJoystick = releaseJoystick;
+  window.__resetMobileLookTouch = () => { lookTouchId = null; };
 }
 
 // Keyboard Listeners
@@ -295,6 +295,8 @@ const btnModeOrbit = document.getElementById('btn-mode-orbit');
 
 function setNavigationMode(newMode) {
   state.mode = newMode;
+  if (newMode !== 'first-person' && window.__releaseMobileJoystick) window.__releaseMobileJoystick();
+  if (window.__resetMobileLookTouch) window.__resetMobileLookTouch();
   if (newMode === 'first-person') {
     btnModeFP.className = 'px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5';
     btnModeOrbit.className = 'px-3 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 border border-transparent';
