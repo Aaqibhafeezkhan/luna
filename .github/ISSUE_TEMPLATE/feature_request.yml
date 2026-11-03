@@ -1,0 +1,26 @@
+name: Feature Request
+description: Suggest an idea or capability for Luna
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Share your ideas for extending Luna's 3D engine, NavMesh or tools.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Is your feature request related to a specific limitation?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any other approaches or existing tools you have considered.

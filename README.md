@@ -1,19 +1,20 @@
 # Luna
 
+> Turn smartphone room videos into interactive 3D WebGL walkthroughs with collision and distance tools.
+
+```bash
+git clone https://github.com/atharhive/luna && cd luna && npm install && npm run dev
+```
+
 <p align="center">
-  <img src="screen_universal_reconstruction.png" alt="Luna — 3D Spatial Computing Engine & Indoor Digital Twin" width="100%">
+  <img src="demo.gif" alt="Luna — 3D Spatial Walkthrough Demo" width="100%">
 </p>
 
 <p align="center">
-  <strong>Browser-native 3D spatial computing engine & neural digital twin for indoor environments.</strong><br>
-  Transform consumer mobile captures into interactive, metrically grounded, 60 FPS WebGL twins with dual-layer radiance, dynamic NavMesh traversal, and spatial commerce indexing.
-</p>
-
-<p align="center">
-  <a href="https://github.com/atharhive/luna/releases"><img src="https://img.shields.io/badge/release-v3.0.0--spatial-06b6d4?style=for-the-badge&logo=github&logoColor=white" alt="Release v3.0.0"></a>
-  <a href="#benchmarks"><img src="https://img.shields.io/badge/performance-60%20FPS%20Vsync-10b981?style=for-the-badge&logo=webgl&logoColor=white" alt="60 FPS WebGL"></a>
-  <a href="https://techfest.org"><img src="https://img.shields.io/badge/competition-Techfest%20IIT%20Bombay-ff4757?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Techfest IIT Bombay"></a>
-  <a href="#juspay-spatial-commerce"><img src="https://img.shields.io/badge/partner-Juspay%20HyperSDK-8b5cf6?style=for-the-badge" alt="Juspay HyperSDK"></a>
+  <a href="https://instruction-antenna-reseller-patterns.trycloudflare.com"><img src="https://img.shields.io/badge/live-demo-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Live Demo"></a>
+  <a href="https://github.com/atharhive/luna/releases"><img src="https://img.shields.io/badge/release-v1.0.0-06b6d4?style=for-the-badge&logo=github&logoColor=white" alt="Release v1.0.0"></a>
+  <a href="https://github.com/atharhive/luna/actions"><img src="https://img.shields.io/badge/CI-passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI Passing"></a>
+  <a href="https://techfest.org"><img src="https://img.shields.io/badge/competition-Techfest%20IIT%20Bombay-ff4757?style=for-the-badge" alt="Techfest IIT Bombay"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2ed573?style=for-the-badge" alt="MIT License"></a>
 </p>
 
@@ -25,8 +26,7 @@
   <img src="https://img.shields.io/badge/Point%20Cloud-65k%20Splats-f59e0b?style=flat-square" alt="65k Splats">
   <img src="https://img.shields.io/badge/NavMesh-AABB%20Collision-6366f1?style=flat-square" alt="NavMesh">
   <img src="https://img.shields.io/badge/Export-Stanford%20.PLY-3b82f6?style=flat-square" alt="Stanford PLY">
-  <img src="https://img.shields.io/badge/Media-FFmpeg%20H.264-007808?style=flat-square&logo=ffmpeg&logoColor=white" alt="FFmpeg">
-  <img src="https://img.shields.io/badge/Code%20Quality-Verified%20SSH-10b981?style=flat-square&logo=git&logoColor=white" alt="Verified Commits">
+  <img src="https://img.shields.io/badge/SLA-24h%20Response-8b5cf6?style=flat-square" alt="Maintainer SLA">
 </p>
 
 <p align="center">
