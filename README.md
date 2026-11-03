@@ -7,7 +7,7 @@ git clone https://github.com/atharhive/luna && cd luna && npm install && npm run
 ```
 
 <p align="center">
-  <img src="screen_universal_reconstruction.png" alt="Luna — 3D Spatial Computing Engine & Indoor Digital Twin" width="100%">
+  <img src="assets/images/screen_universal_reconstruction.png" alt="Luna — 3D Spatial Computing Engine & Indoor Digital Twin" width="100%">
 </p>
 
 <p align="center">
@@ -114,31 +114,31 @@ Unlike conventional virtual tours that bake visual geometry and collisions toget
 <table align="center" width="100%">
   <tr>
     <td width="50%" align="center">
-      <img src="screen_splat.png" alt="65k Gaussian Splat Radiance Field" width="100%"><br>
+      <img src="assets/images/screen_splat.png" alt="65k Gaussian Splat Radiance Field" width="100%"><br>
       <strong>Photometric Radiance Field (65k Splats)</strong>
     </td>
     <td width="50%" align="center">
-      <img src="screen_pbr_solid.png" alt="PBR Solid Digital Twin" width="100%"><br>
+      <img src="assets/images/screen_pbr_solid.png" alt="PBR Solid Digital Twin" width="100%"><br>
       <strong>Metrically Accurate PBR Solid Twin</strong>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="screen_navmesh.png" alt="NavMesh & Collision Matrix" width="100%"><br>
+      <img src="assets/images/screen_navmesh.png" alt="NavMesh & Collision Matrix" width="100%"><br>
       <strong>NavMesh & Corridor Collision Graph</strong>
     </td>
     <td width="50%" align="center">
-      <img src="screen_poi_juspay.png" alt="Juspay Spatial Commerce Node" width="100%"><br>
+      <img src="assets/images/screen_poi_juspay.png" alt="Juspay Spatial Commerce Node" width="100%"><br>
       <strong>Juspay HyperSDK Spatial Commerce Node</strong>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="screen_upload_modal.png" alt="Client-Side Ingestion Modal" width="100%"><br>
+      <img src="assets/images/screen_upload_modal.png" alt="Client-Side Ingestion Modal" width="100%"><br>
       <strong>Client-Side Photo & Video Ingestion Modal</strong>
     </td>
     <td width="50%" align="center">
-      <img src="preview_dollhouse.png" alt="Isometric Dollhouse Orbit View" width="100%"><br>
+      <img src="assets/images/preview_dollhouse.png" alt="Isometric Dollhouse Orbit View" width="100%"><br>
       <strong>Isometric Dollhouse Orbit View</strong>
     </td>
   </tr>
@@ -235,11 +235,11 @@ Production assets are generated in the `dist/` directory, optimized for zero-con
 
 ## Competition Deliverables
 
-- 📄 **Executive Summary (1-Page Link Sheet):** [`Luna_Pitch_One_Page_Athar.pdf`](Luna_Pitch_One_Page_Athar.pdf) — Concise 1-page executive sheet featuring prominent direct hyperlinks to the live interactive engine and verified GitHub repository.
-- 📄 **Executive Pitch Deck (3-Page Full Edition):** [`Luna_Executive_Pitch_Athar.pdf`](Luna_Executive_Pitch_Athar.pdf) — 3-page publication-grade pitch deck featuring deep architecture, POI Cartesian matrix, and benchmarks.
-- 📄 **Master Technical Abstract:** [`Namma_Space_Round1_Athar.pdf`](Namma_Space_Round1_Athar.pdf) — Publication-grade 2-page document with typography, mathematics, and SOP specifications.
-- 🎥 **Walkthrough Demo Video:** [`Namma_Space_Walkthrough_Demo.mp4`](Namma_Space_Walkthrough_Demo.mp4) — 1080p walkthrough showcasing dual-mode navigation, laser measurement, and spatial POI indexing.
-- 📐 **Vector System Architecture:** [`architecture.svg`](architecture.svg) — Dark-mode scalable vector diagram.
+- 📄 **Executive Summary (1-Page Link Sheet):** [`docs/Luna_Pitch_One_Page_Athar.pdf`](docs/Luna_Pitch_One_Page_Athar.pdf) — Concise 1-page executive sheet featuring prominent direct hyperlinks to the live interactive engine and verified GitHub repository.
+- 📄 **Executive Pitch Deck (3-Page Full Edition):** [`docs/Luna_Executive_Pitch_Athar.pdf`](docs/Luna_Executive_Pitch_Athar.pdf) — 3-page publication-grade pitch deck featuring deep architecture, POI Cartesian matrix, and benchmarks.
+- 📄 **Master Technical Abstract:** [`docs/Namma_Space_Round1_Athar.pdf`](docs/Namma_Space_Round1_Athar.pdf) — Publication-grade 2-page document with typography, mathematics, and SOP specifications.
+- 🎥 **Walkthrough Demo Video:** [`assets/video/Namma_Space_Walkthrough_Demo.mp4`](assets/video/Namma_Space_Walkthrough_Demo.mp4) — 1080p walkthrough showcasing dual-mode navigation, laser measurement, and spatial POI indexing.
+- 📐 **Vector System Architecture:** [`assets/images/architecture.svg`](assets/images/architecture.svg) — Dark-mode scalable vector diagram.
 - 📦 **Master Deliverable Package:** Complete submission assets packaged for Round 1 evaluation.
 
 ---
